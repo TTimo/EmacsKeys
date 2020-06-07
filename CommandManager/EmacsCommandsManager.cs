@@ -56,6 +56,8 @@ namespace Microsoft.VisualStudio.Editor.EmacsEmulation
 
         public bool IsEnabled { get; set; }
 
+        public bool IsDeleteSelectionMode { get; set; }
+
         public void OnImportsSatisfied()
         {
             this.ComponentModel = this.ServiceProvider.GetService<SComponentModel, IComponentModel>();
@@ -294,6 +296,8 @@ namespace Microsoft.VisualStudio.Editor.EmacsEmulation
                         }
                     }
                 }
+                // TODO: Add settings?
+                this.IsDeleteSelectionMode = true;
             }
             catch
             {

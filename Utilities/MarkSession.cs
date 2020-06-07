@@ -175,11 +175,13 @@ namespace Microsoft.VisualStudio.Editor.EmacsEmulation
                             this.manager.Execute(this.view, EmacsCommandID.LineDown); 
                             return VSConstants.S_OK;
                         // Handle cancelation keys
+                        case (uint)VSConstants.VSStd2KCmdID.CANCEL:
+                            Deactivate();
+                            break;
                         case (uint)VSConstants.VSStd2KCmdID.TYPECHAR:
                         case (uint)VSConstants.VSStd2KCmdID.BACKSPACE:
-                        case (uint)VSConstants.VSStd2KCmdID.CANCEL:
                         case (uint)VSConstants.VSStd2KCmdID.TAB:
-                            Deactivate();
+                            Deactivate(!this.manager.IsDeleteSelectionMode);
                             break;
                     }
                 }
@@ -193,7 +195,7 @@ namespace Microsoft.VisualStudio.Editor.EmacsEmulation
                             Deactivate(false);
                             break;
                         case (uint)VSConstants.VSStd97CmdID.Delete:
-                            Deactivate();
+                            Deactivate(!this.manager.IsDeleteSelectionMode);
                             break;
                     }
                 }
