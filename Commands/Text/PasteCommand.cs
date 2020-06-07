@@ -30,7 +30,8 @@ namespace Microsoft.VisualStudio.Editor.EmacsEmulation.Commands
         {
             // In Emacs, if there's a selection and text is pasted, the selection is cleared first
             if (context.MarkSession.IsActive)
-                context.MarkSession.Deactivate(clearSelection: true);
+                // Delete Selection mode doesn't clear selection, so the paste deletes the current selection
+                context.MarkSession.Deactivate(clearSelection: !context.Manager.IsDeleteSelectionMode);
 
             // Push the mark represented by the current position of the caret
             context.MarkSession.PushMark(false);
